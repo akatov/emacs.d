@@ -1,0 +1,14 @@
+*~
+*.elc
+auto-save-list
+url
+ac-comphist.dat
+elnode
+emms
+bookmarks
+xkcd
+ido.last
+eshell
+elpa
+temp
+custom.el
