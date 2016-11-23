@@ -132,6 +132,14 @@ Some global keybindings I like to use...
 (bind-key "<s-return>" 'toggle-frame-fullscreen)
 #+END_SRC
 
+** Hooks
+
+#+BEGIN_SRC emacs-lisp
+(defun add-hooks (mode-hooks hooks)
+  (loop for mode-hook in mode-hooks do
+        (loop for hook in hooks do
+              (add-hook mode-hook hook))))
+#+END_SRC
 * Private Config
 
 Some configuration settings I don't want the world to see.
@@ -140,7 +148,8 @@ I keep them in a separate private repo.
 #+BEGIN_SRC emacs-lisp
 (use-package f
   :ensure t)
-(mapc (lambda (f) (load f)) (f-files "~/.emacs.d/private"))
+(if (file-exists-p "~/.emacs.d/private")
+  (mapc (lambda (f) (load f)) (f-files "~/.emacs.d/private")))
 #+END_SRC
 
 * Theme
@@ -222,6 +231,7 @@ I keep them in a separate private repo.
 (setq org-log-done t)
 (setq org-use-speed-commands t)
 (setq org-return-follows-link nil)
+(setq org-src-preserve-indentation t)
 #+END_SRC
 
 ** babel
@@ -401,16 +411,20 @@ I keep them in a separate private repo.
 
 #+BEGIN_SRC emacs-lisp
 (use-package company
-	     :init
-	     (global-company-mode))
+  :ensure t
+  ;; :init
+  ;; (global-company-mode)
+  )
 #+END_SRC
 
 ** company-quickhelp
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-quickhelp
-	     :init
-	     (company-quickhelp-mode 1))
+  :ensure t
+  ;; :init
+  ;; (company-quickhelp-mode 1)
+  )
 #+END_SRC
 
 ** js2-highlight-vars
