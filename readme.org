@@ -4,6 +4,16 @@
 
 [[https://travis-ci.org/akatov/emacs.d][https://travis-ci.org/akatov/emacs.d.svg]]
 
+this file is loaded by [[./init.el][init.el]], which looks like this:
+
+#+BEGIN_SRC 
+(setq debug-on-error t)
+(package-initialize)
+(org-babel-load-file
+ (expand-file-name "readme.org"
+		   user-emacs-directory))
+#+END_SRC
+
 * Startup
 ** Header
 
