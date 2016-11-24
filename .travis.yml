@@ -1,0 +1,15 @@
+language: generic
+sudo: false
+before_install:
+- curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh
+- evm install $EVM_EMACS --use --skip
+env:
+- EVM_EMACS=emacs-24.5-travis
+- EVM_EMACS=emacs-25.1-travis
+- EVM_EMACS=emacs-git-snapshot-travis
+before_script:
+- rm -rf ~/.emacs.d
+- ln -sf $TRAVIS_BUILD_DIR ~/.emacs.d
+script:
+- emacs --version
+- emacs --batch --load ~/.emacs.d/init.el  --execute '(print "great success")'
