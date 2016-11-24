@@ -268,8 +268,7 @@ I keep them in a separate private repo.
 ** plus contrib
 
 #+BEGIN_SRC emacs-lisp
-(use-package org-plus-contrib
-	     :ensure t)
+(use-package org-plus-contrib)
 #+END_SRC
 
 ** Ox Reveal
