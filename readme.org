@@ -2,6 +2,8 @@
 #+AUTHOR: Dmitri Akatov
 #+Email: akatov@gmail.com
 
+[[https://travis-ci.org/akatov/emacs.d.svg]]
+
 * Startup
 ** Header
 
