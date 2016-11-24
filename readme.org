@@ -226,6 +226,8 @@ I keep them in a separate private repo.
 * Org Mode
 
 #+BEGIN_SRC emacs-lisp
+(use-package org
+             :ensure t)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -262,8 +264,7 @@ I keep them in a separate private repo.
 ** Ox Reveal
 
 #+BEGIN_SRC emacs-lisp
-(use-package ox-reveal
-	     :ensure t)
+(use-package ox-reveal)
 #+END_SRC
 
 * Package Config
