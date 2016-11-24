@@ -40,6 +40,17 @@ use use-package to configure (and install) everything else
 #+END_SRC
 
 * Global Config
+
+** Frame
+
+#+BEGIN_SRC emacs-lisp
+(when window-system
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
+#+END_SRC
+
 ** Path
 
 In NextStep (OSX) window mode load the path settings from the shell
