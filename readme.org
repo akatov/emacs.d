@@ -2,17 +2,11 @@
 #+AUTHOR: Dmitri Akatov
 #+Email: akatov@gmail.com
 
+* Intro
+
 [[https://travis-ci.org/akatov/emacs.d][https://travis-ci.org/akatov/emacs.d.svg]]
 
-this file is loaded by [[./init.el][init.el]], which looks like this:
-
-#+BEGIN_SRC 
-(setq debug-on-error t)
-(package-initialize)
-(org-babel-load-file
- (expand-file-name "readme.org"
-		   user-emacs-directory))
-#+END_SRC
+This file is loaded by [[./init.el][init.el]], through ~(org-babel-load-file (expand-file-name "readme.org" user-emacs-directory))~
 
 * Startup
 ** Header
@@ -52,7 +46,17 @@ use use-package to configure (and install) everything else
 #+END_SRC
 
 * Global Config
+** Edit Config
 
+quickly edit this file
+
+#+BEGIN_SRC emacs-lisp
+(defun config ()
+  (interactive)
+  (switch-to-buffer
+   (find-file
+    (expand-file-name "readme.org" user-emacs-directory))))
+#+END_SRC
 ** Frame
 
 #+BEGIN_SRC emacs-lisp
@@ -90,7 +94,7 @@ Just answer `y` or `n`.
 
 ** Custom-File
 
-Keep custom settings in a [[file:custom.el][separate custom file.
+Keep custom settings in a [[file:custom.el][separate]] custom file.
 
 #+BEGIN_SRC emacs-lisp
 (setq custom-file "~/.emacs.d/custom.el")
@@ -125,7 +129,7 @@ from use-package...
 
 #+BEGIN_SRC emacs-lisp
 (ido-mode 'buffers)    ;; I only like ido-mode for switching buffers.
-(blink-cursor-mode t)  ;; turn blinking on
+(blink-cursor-mode)    ;; turn blinking on
 (column-number-mode t) ;; show columns
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-scroll-amount
@@ -175,8 +179,7 @@ I keep them in a separate private repo.
   (mapc (lambda (f) (load f)) (f-files "~/.emacs.d/private")))
 #+END_SRC
 
-* Theme
-
+* Themes
 ** Cyberpunk theme
 
 #+BEGIN_SRC emacs-lisp
@@ -246,7 +249,7 @@ I keep them in a separate private repo.
 (bind-key "s-<f11>" 'disable-active-themes)
 #+end_src
 
-* Org Mode
+* org-mode
 
 #+BEGIN_SRC emacs-lisp
 (use-package org
@@ -289,6 +292,13 @@ I keep them in a separate private repo.
 (use-package ox-reveal)
 #+END_SRC
 
+** TODO org-drill
+* Languages
+** TODO Erlang
+#+BEGIN_SRC emacs-lisp
+(use-package edts
+  :ensure t)
+#+END_SRC
 * Package Config
 
 ** Ace-Jump
@@ -426,8 +436,9 @@ I keep them in a separate private repo.
 
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
-	     :init
-	     (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 #+END_SRC
 
 ** company
@@ -504,11 +515,24 @@ I keep them in a separate private repo.
 	     (global-set-key (kbd "C-h M-M") 'discover-my-mode))
 #+END_SRC
 
-* XMPP
-
+* Programs
+** Slack
 #+BEGIN_SRC emacs-lisp
+(use-package slack
+  :ensure t)
+#+END_SRC
+** Jabber
+
+ #+BEGIN_SRC emacs-lisp
 (use-package jabber
 	     :ensure t)
+ #+END_SRC
+
+* Toys & Games
+** sl
+#+BEGIN_SRC emacs-lisp
+(use-package sl
+  :ensure t)
 #+END_SRC
 
 * Temp
