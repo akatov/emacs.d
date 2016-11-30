@@ -173,10 +173,9 @@ Some configuration settings I don't want the world to see.
 I keep them in a separate private repo.
 
 #+BEGIN_SRC emacs-lisp
-(use-package f
-  :ensure t)
-(if (file-exists-p "~/.emacs.d/private")
-  (mapc (lambda (f) (load f)) (f-files "~/.emacs.d/private")))
+(let ((private-emacs-file "~/.fresh/source/gitlab.com/akatov-private/emacs.org"))
+  (if (file-exists-p private-emacs-file)
+      (org-babel-load-file private-emacs-file)))
 #+END_SRC
 
 * Themes
