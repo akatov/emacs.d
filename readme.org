@@ -20,14 +20,14 @@ This is to remind me in case I start editing [[file:README.el][readme.el]] by mi
 
 ** Package
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("org" . "http://orgmode.org/elpa/") t)
-(add-to-list 'package-archives
-	     '("SC" . "http://joseito.republika.pl/sunrise-commander/") t)
-(package-initialize)
+;; (require 'package)
+;; (add-to-list 'package-archives
+;; 	     '("melpa" . "http://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("org" . "http://orgmode.org/elpa/") t)
+;; (add-to-list 'package-archives
+;; 	     '("SC" . "http://joseito.republika.pl/sunrise-commander/") t)
+;; (package-initialize)
 #+END_SRC
 
 ** Use-Package
@@ -45,6 +45,14 @@ use use-package to configure (and install) everything else
 (require 'bind-key)
 #+END_SRC
 
+** Cask
+
+use Cask to configure the installed packages
+
+#+BEGIN_SRC emacs-lisp
+;; (require 'cask "~/.cask/cask.el")
+;; (cask-initialize)
+#+END_SRC
 * Global Config
 ** Edit Config
 
@@ -163,8 +171,8 @@ Some global keybindings I like to use...
 
 #+BEGIN_SRC emacs-lisp
 (defun add-hooks (mode-hooks hooks)
-  (loop for mode-hook in mode-hooks do
-        (loop for hook in hooks do
+  (cl-loop for mode-hook in mode-hooks do
+        (cl-loop for hook in hooks do
               (add-hook mode-hook hook))))
 #+END_SRC
 * Private Config
@@ -264,10 +272,21 @@ I keep them in a separate private repo.
 ** babel
 
 #+BEGIN_SRC emacs-lisp
+;; todo: find a better location for this
+(setq org-ditaa-jar-path
+      "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
+(setq org-plantuml-jar-path
+      "/usr/local/Cellar/plantuml/1.2017.14/libexec/plantuml.jar")
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (clojure . t)))
+   (plantuml . t)
+   (python . t)
+   (ditaa . t)
+   (clojure . t)
+   (sh . t)
+   (http . t)))
 
 ;; Use cider as the clojure execution backend
 (setq org-babel-clojure-backend 'cider)
@@ -431,6 +450,15 @@ I keep them in a separate private repo.
 	     (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode)))
 #+END_SRC
 
+** js-comint
+#+BEGIN_SRC emacs-lisp
+(use-package js-comint
+  :init
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-x C-e") 'js-send-last-sexp)
+              (local-set-key (kbd "C-c b") 'js-send-buffer))))
+#+END_SRC
 ** markdown-mode
 
 #+BEGIN_SRC emacs-lisp
@@ -514,11 +542,34 @@ I keep them in a separate private repo.
 	     (global-set-key (kbd "C-h M-M") 'discover-my-mode))
 #+END_SRC
 
+** prettier-js
+#+BEGIN_SRC emacs-lisp
+(use-package prettier-js
+  :init
+  ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (setq prettier-js-args '("--print-width" "70"
+                           "--tab-width" "2"
+                           "--single-quote"
+                           "--trailing-comma" "es5")))
+#+END_SRC
+
+** eslint-fix
+#+BEGIN_SRC emacs-lisp
+(use-package eslint-fix
+  :init
+  (add-hook 'js2-mode-hook
+            (lambda () 
+              (add-hook 'after-save-hook 'eslint-fix nil t)
+              ))
+  (add-hook 'js-mode-hook
+            (lambda () 
+              (add-hook 'after-save-hook 'eslint-fix nil t)
+              )))
+#+END_SRC
 * Programs
 ** Slack
 #+BEGIN_SRC emacs-lisp
-(use-package slack
-  :ensure t)
+;; (use-package slack)
 #+END_SRC
 ** Jabber
 
@@ -544,25 +595,25 @@ These definitions are looking to be moved somewhere else.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package company-emoji
-  :if (window-system)
-  :init
-  (defun --set-emoji-font (frame)
-    "Adjust the font settings of FRAME so Emacs can display emoji properly."
-    (if (eq system-type 'darwin)
-	;; For NS/Cocoa
-	(set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
-      ;; For Linux
-      (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+;; (use-package company-emoji
+;;   :if (window-system)
+;;   :init
+;;   (defun --set-emoji-font (frame)
+;;     "Adjust the font settings of FRAME so Emacs can display emoji properly."
+;;     (if (eq system-type 'darwin)
+;; 	;; For NS/Cocoa
+;; 	(set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
+;;       ;; For Linux
+;;       (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
 
-  ;; For when Emacs is started in GUI mode:
-  (--set-emoji-font nil)
-  ;; Hook for when a frame is created with emacsclient
-  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
-  :config
-  (add-to-list 'company-backends 'company-emoji)
-  (add-hook 'after-make-frame-functions '--set-emoji-font)
-  (setq company-emoji-insert-unicode nil))
+;;   ;; For when Emacs is started in GUI mode:
+;;   (--set-emoji-font nil)
+;;   ;; Hook for when a frame is created with emacsclient
+;;   ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+;;   :config
+;;   (add-to-list 'company-backends 'company-emoji)
+;;   (add-hook 'after-make-frame-functions '--set-emoji-font)
+;;   (setq company-emoji-insert-unicode nil))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -573,10 +624,10 @@ These definitions are looking to be moved somewhere else.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package tagedit
-	     :ensure t
-	     :init
-	     (tagedit-add-paredit-like-keybindings)
-	     (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-	     (add-hook 'handlebars-mode-hook (lambda () (tagedit-mode 1))))
+;; (use-package tagedit
+;; 	     :ensure t
+;; 	     :init
+;; 	     (tagedit-add-paredit-like-keybindings)
+;; 	     (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
+;; 	     (add-hook 'handlebars-mode-hook (lambda () (tagedit-mode 1))))
 #+END_SRC
