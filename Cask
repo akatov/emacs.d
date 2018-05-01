@@ -24,7 +24,7 @@
 (depends-on "elixir-mode")
 (depends-on "epl")
 (depends-on "erlang")
-(depends-on "eslint-fix")
+(depends-on "eslint-fix" :git "git@github.com:akatov/eslint-fix.git" :ref "ae1479d2c0c501cc6c57329050caae603f308b55")
 (depends-on "exec-path-from-shell")
 (depends-on "f")
 (depends-on "fsm")
