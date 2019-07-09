@@ -15,3 +15,4 @@ custom.el
 README.el
 edts
 .cask
+transient
