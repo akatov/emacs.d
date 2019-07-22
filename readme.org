@@ -38,6 +38,13 @@ use use-package to configure (and install) everything else
   (require 'bind-key)
   (require 'add-hooks)
 #+END_SRC
+
+** lib directory
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path (expand-file-name "lib" user-emacs-directory))
+#+END_SRC
+
 * Defaults Config
 ** Frame
 
@@ -625,7 +632,8 @@ These definitions are looking to be moved somewhere else.
 ;; 	     (add-hook 'handlebars-mode-hook (lambda () (tagedit-mode 1))))
 #+END_SRC
 
+** fira-code-mode
 
 #+BEGIN_SRC emacs-lisp
-(require 'fira-code-mode "~/.fresh/source/akatov/akamacs/fira-code-mode.el")
+(require 'fira-code-mode)
 #+END_SRC
