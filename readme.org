@@ -4,7 +4,7 @@
 
 * Intro
 
-[[https://travis-ci.org/akatov/akamacs][https://travis-ci.org/akatov/akamacs.svg]]
+[[https://travis-ci.org/akatov/akamacs][https://travis-ci.org/akatov/akamacs.svg?branch=master]]
 
 This file is loaded by [[./init.el][init.el]], through
 ~(org-babel-load-file (expand-file-name "readme.org" user-emacs-directory))~
