@@ -3,9 +3,13 @@ language: generic
 services:
   - docker
 
-before_install:
-  - docker pull flycheck/emacs-cask:26.2
+env:
+  - EMACS_VERSION=26.2 CASK_INSTALL=Yes
+  - EMACS_VERSION=26.2 CASK_INSTALL=No
+
+install:
+  - docker pull flycheck/emacs-cask:${EMACS_VERSION}
 
 script:
-- docker run -it --rm flycheck/emacs-cask:26.2 emacs --version
-- docker run -v ${TRAVIS_BUILD_DIR}:/root/.emacs.d -it --rm flycheck/emacs-cask:26.2 bash -c "cd /root/.emacs.d && cask && emacs --batch --load /root/.emacs.d/init.el  --execute '(print \"great success\")'"
+  - test ${CASK_INSTALL} = "No" || docker run -v ${TRAVIS_BUILD_DIR}:/root/.emacs.d -it --rm flycheck/emacs-cask:${EMACS_VERSION} bash -c "cd /root/.emacs.d && cask && emacs --batch --load /root/.emacs.d/init.el  --execute '(print \"great success\")'"
+  - test ${CASK_INSTALL} = "Yes" || docker run -v ${TRAVIS_BUILD_DIR}:/root/.emacs.d -it --rm flycheck/emacs-cask:${EMACS_VERSION} emacs --batch --load /root/.emacs.d/init.el  --execute '(print "great success")'
