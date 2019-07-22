@@ -1,14 +1,11 @@
 language: generic
-sudo: false
+
+services:
+  - docker
+
 before_install:
-- curl -fsSkL https://gist.github.com/rejeep/ebcd57c3af83b049833b/raw > x.sh && source ./x.sh
-- evm install $EVM_EMACS --use --skip
-env:
-- EVM_EMACS=emacs-25.1-travis
-- EVM_EMACS=emacs-git-snapshot-travis
-before_script:
-- rm -rf ~/.emacs.d
-- ln -sf $TRAVIS_BUILD_DIR ~/.emacs.d
+  - docker pull flycheck/emacs-cask:26.2
+
 script:
-- emacs --version
-- emacs --batch --load ~/.emacs.d/init.el  --execute '(print "great success")'
+- docker run -it --rm flycheck/emacs-cask:26.2 emacs --version
+- docker run -v ${TRAVIS_BUILD_DIR}:/root/.emacs.d -it --rm flycheck/emacs-cask:26.2 bash -c "cd /root/.emacs.d && cask && emacs --batch --load /root/.emacs.d/init.el  --execute '(print \"great success\")'"
