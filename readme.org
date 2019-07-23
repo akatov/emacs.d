@@ -46,20 +46,27 @@ cd ~/.emacs.d
 cask install
 #+END_SRC
 
-** Use-Package
+** Always Install
 
-use use-package to configure (and install) everything else
+Always install use-package, bind-key, and add-hooks,
+since we use them in the config directly.
 
 #+BEGIN_SRC emacs-lisp
+;;; use-package is a nice way to install and configure packages
 (unless (package-installed-p 'use-package)
-  ;; (package-refresh-contents)
   (package-install 'use-package))
-;; (require 'use-package)
 (eval-when-compile
   (require 'use-package))
-;; (require 'diminish)
-(require 'bind-key)
-(require 'add-hooks)
+
+(unless (package-installed-p 'bind-key)
+  (package-install 'bind-key))
+(eval-when-compile
+  (require 'bind-key))
+
+(unless (package-installed-p 'add-hooks)
+  (package-install 'add-hooks))
+(eval-when-compile
+  (require 'add-hooks))
 #+END_SRC
 
 ** lib directory
@@ -204,10 +211,6 @@ quickly edit this file
 #+end_src
 
 * Packages
-** add-hooks
-#+BEGIN_SRC emacs-lisp
-(use-package add-hooks)
-#+END_SRC
 ** cyberpunk-theme
 
 #+BEGIN_SRC emacs-lisp
