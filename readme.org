@@ -216,7 +216,7 @@ quickly edit this file
 #+BEGIN_SRC emacs-lisp
 (use-package cyberpunk-theme
 	     :if (window-system)
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (progn
 	       (load-theme 'cyberpunk t)
@@ -233,7 +233,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 #+BEGIN_SRC emacs-lisp
 (use-package exec-path-from-shell
 	     :if (memq window-system '(mac ns))
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (setq exec-path-from-shell-variables
 		   '("PATH"
@@ -248,7 +248,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package monokai-theme
 	     :if (window-system)
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (setq monokai-use-variable-pitch nil))
 #+end_src
@@ -260,7 +260,8 @@ In NextStep (OSX) window mode load the path settings from the shell
 	     :defer 10
 	     :init
 	     (setq solarized-use-variable-pitch nil)
-	     :ensure t)
+	     ;; :ensure t
+	     )
 #+END_SRC
 
 ** waher-theme
@@ -268,7 +269,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package waher-theme
 	     :if (window-system)
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (load-theme 'waher))
 #+end_src
@@ -277,7 +278,8 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package org
-             :ensure t)
+             ;; :ensure t
+	     )
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -289,30 +291,30 @@ In NextStep (OSX) window mode load the path settings from the shell
 ** org-babel
 
 #+BEGIN_SRC emacs-lisp
-;; todo: find a better location for this
-(setq org-ditaa-jar-path
-      "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
-(setq org-plantuml-jar-path
-      "/usr/local/Cellar/plantuml/1.2017.14/libexec/plantuml.jar")
+  ;; todo: find a better location for this
+  (setq org-ditaa-jar-path
+	"/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar")
+  (setq org-plantuml-jar-path
+	"/usr/local/Cellar/plantuml/1.2017.14/libexec/plantuml.jar")
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (plantuml . t)
-   (python . t)
-   (ditaa . t)
-   (clojure . t)
-   (shell . t)
-   (http . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (plantuml . t)
+     (python . t)
+     (ditaa . t)
+     (clojure . t)
+     (shell . t)
+     (http . t)))
 
-;; Use cider as the clojure execution backend
-(setq org-babel-clojure-backend 'cider)
+  ;; Use cider as the clojure execution backend
+  ;; (setq org-babel-clojure-backend 'cider)
 
-;; Let's have pretty source code blocks
-(setq org-edit-src-content-indentation 0
-      org-src-tab-acts-natively t
-      org-src-fontify-natively t
-      org-confirm-babel-evaluate nil)
+  ;; Let's have pretty source code blocks
+  (setq org-edit-src-content-indentation 0
+	org-src-tab-acts-natively t
+	org-src-fontify-natively t
+	org-confirm-babel-evaluate nil)
 #+END_SRC
 
 ** org-plus-contrib
@@ -331,13 +333,14 @@ In NextStep (OSX) window mode load the path settings from the shell
 ** TODO edts
 #+BEGIN_SRC emacs-lisp
 (use-package edts
-  :ensure t)
+  ;; :ensure t
+  )
 #+END_SRC
 ** ace-jump-mode
 
 #+BEGIN_SRC emacs-lisp
 (use-package ace-jump-mode
-	     :ensure t
+	     ;; :ensure t
 	     :bind (("C-;" . ace-jump-mode)
 		    ("C-c SPC" . ace-jump-mode)
 		    ("C-c C-SPC" . ace-jump-mode)))
@@ -432,14 +435,16 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package handlebars-sgml-mode
-	     :ensure t)
+	     ;; :ensure t
+	     )
 #+END_SRC
 
 ** less-css-mode
 
 #+BEGIN_SRC emacs-lisp
 (use-package less-css-mode
-	     :ensure t)
+					;:ensure t
+  )
 #+END_SRC
 
 ** JSCS
@@ -475,7 +480,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
-  :ensure t
+  ;; :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 #+END_SRC
@@ -484,7 +489,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package company
-  :ensure t
+  ;; :ensure t
   ;; :init
   ;; (global-company-mode)
   )
@@ -494,7 +499,7 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-quickhelp
-  :ensure t
+  ;; :ensure t
   ;; :init
   ;; (company-quickhelp-mode 1)
   )
@@ -512,14 +517,15 @@ In NextStep (OSX) window mode load the path settings from the shell
 
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode
-	     :ensure t)
+	     ;; :ensure t
+	     )
 #+END_SRC
 
 ** neotree
 
 #+BEGIN_SRC emacs-lisp
 (use-package neotree
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (bind-key [f8] 'neotree-toggle))
 #+END_SRC
@@ -527,20 +533,20 @@ In NextStep (OSX) window mode load the path settings from the shell
 ** cider
 
 #+BEGIN_SRC emacs-lisp
-(use-package cider
-	     :ensure t
-	     :init
-	     (setq nrepl-hide-special-buffers t
-		   cider-repl-pop-to-buffer-on-connect nil
-		   cider-popup-stacktraces nil
-		   cider-repl-popup-stacktraces t))
+;; (use-package cider
+;; 	     ;; :ensure t
+;; 	     :init
+;; 	     (setq nrepl-hide-special-buffers t
+;; 		   cider-repl-pop-to-buffer-on-connect nil
+;; 		   cider-popup-stacktraces nil
+;; 		   cider-repl-popup-stacktraces t))
 #+END_SRC
 
 ** magit
 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
-	     :ensure t
+	     ;; :ensure t
 	     :init
 	     (bind-key "C-x g" 'magit-status))
 #+END_SRC
@@ -601,14 +607,16 @@ In NextStep (OSX) window mode load the path settings from the shell
 ** jabber
 
  #+BEGIN_SRC emacs-lisp
-(use-package jabber
-	     :ensure t)
+;; (use-package jabber
+;; 	     ;; :ensure t
+;; 	     )
  #+END_SRC
 
 ** sl
 #+BEGIN_SRC emacs-lisp
 (use-package sl
-  :ensure t)
+  ;; :ensure t
+  )
 #+END_SRC
 
 * Temp Config
@@ -644,7 +652,7 @@ These definitions are looking to be moved somewhere else.
 
 #+BEGIN_SRC emacs-lisp
 (use-package origami
-	     :ensure t
+	     ;; :ensure t
 	     ;; TODO: keybindings
 	     )
 #+END_SRC
