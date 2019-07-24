@@ -206,7 +206,7 @@ quickly edit this file
 ** fira-code-mode
 
 #+BEGIN_SRC emacs-lisp
-(require 'fira-code-mode)
+(use-package fira-code-mode)
 #+END_SRC
 
 * Downloaded Packages
