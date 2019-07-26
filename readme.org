@@ -675,7 +675,6 @@ In NextStep (OSX) window mode load the path settings from the shell
 ** smartparens
 #+BEGIN_SRC emacs-lisp
 (use-package smartparens
-  :config (require 'smartparens-config)
   :ensure t
   :init
   (add-hooks-pair '(clojure-mode
@@ -688,7 +687,10 @@ In NextStep (OSX) window mode load the path settings from the shell
 		    ruby-mode
 		    typescript-mode)
 		  '(smartparens-strict-mode
-		    show-smartparens-mode)))
+		    show-smartparens-mode))
+  :config (progn
+	    (require 'smartparens-config)
+	    (sp-use-paredit-bindings)))
 #+END_SRC
 ** solarized-theme
 
