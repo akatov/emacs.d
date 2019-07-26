@@ -68,6 +68,12 @@ use use-package to configure (and install) everything else
 	       :config (set-face-background 'hl-line "#073642"))
 #+END_SRC
 
+** js
+
+#+BEGIN_SRC emacs-lisp
+(use-package js
+  :config (setq js-indent-level 2))
+#+END_SRC
 * Defaults Config
 ** Frame
 
@@ -714,7 +720,12 @@ In NextStep (OSX) window mode load the path settings from the shell
 #+END_SRC
 ** TODO toml-mode
 ** TODO ts-comint
-** TODO typescript-mode
+** typescript-mode
+#+BEGIN_SRC emacs-lisp
+(use-package typescript-mode
+  :ensure t
+  :config (setq typescript-indent-level 2))
+#+END_SRC
 ** waher-theme
 
 #+BEGIN_SRC emacs-lisp :tangle no
