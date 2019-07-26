@@ -213,7 +213,8 @@ quickly edit this file
 ** fira-code-mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package fira-code-mode)
+(use-package fira-code-mode
+  :hook (js-mode js2-mode typescript-mode))
 #+END_SRC
 
 * Downloaded Packages
